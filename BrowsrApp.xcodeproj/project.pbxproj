@@ -18,6 +18,7 @@
 		68C6A7422906884E0002F291 /* BrowsrLib in Frameworks */ = {isa = PBXBuildFile; productRef = 68C6A7412906884E0002F291 /* BrowsrLib */; };
 		68C6A7452906C5F00002F291 /* OrganizationExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68C6A7442906C5F00002F291 /* OrganizationExt.swift */; };
 		68C6A7472906CF290002F291 /* SeparatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68C6A7462906CF290002F291 /* SeparatorView.swift */; };
+		68C6A74D2906EC000002F291 /* UserDefaultsExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68C6A74C2906EBFF0002F291 /* UserDefaultsExt.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,6 +52,7 @@
 		68C6A73D290686640002F291 /* OrganizationsListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrganizationsListViewModel.swift; sourceTree = "<group>"; };
 		68C6A7442906C5F00002F291 /* OrganizationExt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrganizationExt.swift; sourceTree = "<group>"; };
 		68C6A7462906CF290002F291 /* SeparatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeparatorView.swift; sourceTree = "<group>"; };
+		68C6A74C2906EBFF0002F291 /* UserDefaultsExt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsExt.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -166,6 +168,7 @@
 			isa = PBXGroup;
 			children = (
 				68C6A7442906C5F00002F291 /* OrganizationExt.swift */,
+				68C6A74C2906EBFF0002F291 /* UserDefaultsExt.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -306,6 +309,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				68C6A74D2906EC000002F291 /* UserDefaultsExt.swift in Sources */,
 				68C6A70D290685800002F291 /* BrowsrAppApp.swift in Sources */,
 				68C6A73E290686640002F291 /* OrganizationsListViewModel.swift in Sources */,
 				68C6A7472906CF290002F291 /* SeparatorView.swift in Sources */,

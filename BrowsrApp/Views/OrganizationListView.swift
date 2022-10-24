@@ -12,55 +12,84 @@ struct OrganizationListView: View {
     
     @StateObject var viewModel = OrganizationsListViewModel()
     
+    @State var searching = false
+    
     var body: some View {
-        VStack(spacing: 0) {
-            Text("Organizations")
-                .font(.system(size: 26))
-                .bold()
-                .foregroundColor(.black)
-                .padding()
-            
-            if viewModel.isLoading {
-                VStack {
+        ZStack {
+            VStack(spacing: 0) {
+                HStack(spacing: 0) {
+                    if searching {
+                        TextField("", text: $viewModel.searchText)
+                            .font(.system(size: 22))
+                            .foregroundColor(.black)
+                            .padding(4)
+                            .background(
+                                Color.black.opacity(0.2)
+                            )
+                            .frame(maxWidth: .infinity)
+                    } else {
+                        Text("Organizations")
+                            .font(.system(size: 26))
+                            .bold()
+                            .foregroundColor(.black)
+                    }
+                    
                     Spacer()
-                    ProgressView()
-                        .tint(.blue)
-                        .scaleEffect(3)
-                    Spacer()
+                    
+                    Image(systemName: "magnifyingglass")
+                        .resizable()
+                        .foregroundColor(.blue)
+                        .frame(width: 30, height: 30)
+                        .onTapGesture {
+                            searching.toggle()
+                            if !searching {
+                                viewModel.refreshOrganizationsList()
+                            }
+                        }
                 }
-            } else {
-                if viewModel.organizationsList.isEmpty {
+                .padding()
+                
+                if viewModel.isLoading {
                     VStack {
                         Spacer()
-                        Button("Refresh") {
-                            viewModel.refreshOrganizationsList()
-                        }
-                        .font(.system(size: 28))
-                        .bold()
+                        ProgressView()
+                            .tint(.blue)
+                            .scaleEffect(3)
                         Spacer()
                     }
                 } else {
-                    ScrollView {
-                        VStack(spacing: 0) {
-                            ForEach(viewModel.organizationsList, id: \.self.id) { organization in
-                                OrganizationCellView(organization: organization)
-                                    .onAppear {
-                                        // This is triggering too many times in preview
-//                                        viewModel.onCellAppear(id: organization.id)
-                                    }
+                    if viewModel.organizationsList.isEmpty {
+                        VStack {
+                            Spacer()
+                            Button("Refresh") {
+                                viewModel.refreshOrganizationsList()
                             }
+                            .font(.system(size: 28))
+                            .bold()
+                            Spacer()
                         }
-                        .padding(.horizontal)
-                        .padding(.bottom, 32)
+                    } else {
+                        ScrollView {
+                            LazyVStack(spacing: 0) {
+                                ForEach(viewModel.organizationsList, id: \.self.id) { organization in
+                                    OrganizationCellView(organization: organization, isFavourite: organization.isFavourite())
+                                        .onAppear {
+                                            viewModel.onCellAppear(id: organization.id)
+                                        }
+                                }
+                            }
+                            .padding(.horizontal)
+                            .padding(.bottom, 32)
+                        }
+                        .frame(maxHeight: .infinity)
                     }
-                    .frame(maxHeight: .infinity)
                 }
             }
+            .frame(maxWidth: .infinity)
         }
         .onAppear {
             viewModel.organizationsListOnAppear()
         }
-        .frame(maxWidth: .infinity)
         .background {
             Color.white
                 .ignoresSafeArea()
@@ -78,7 +107,7 @@ struct OrganizationListView_Previews: PreviewProvider {
 struct OrganizationCellView: View {
     let organization: Organization
     
-    @State var favouriteChanged = false
+    @State var isFavourite: Bool
     
     var body: some View {
         HStack(spacing: 0) {
@@ -104,7 +133,7 @@ struct OrganizationCellView: View {
             
             Spacer()
             
-            Image(systemName: organization.isFavourite() ? "star.circle" : "star")
+            Image(systemName: isFavourite ? "star.circle" : "star")
                 .resizable()
                 .foregroundColor(.yellow)
                 .frame(width: 30, height: 30)
@@ -114,7 +143,7 @@ struct OrganizationCellView: View {
                     } else {
                         organization.addToFavourites()
                     }
-                    favouriteChanged.toggle()
+                    isFavourite.toggle()
                 }
         }
         .padding(.vertical)
