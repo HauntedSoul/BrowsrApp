@@ -1,0 +1,14 @@
+{
+  "pins" : [
+    {
+      "identity" : "browsrlib",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/HauntedSoul/BrowsrLib",
+      "state" : {
+        "branch" : "main",
+        "revision" : "380527b707a4523672acf70a9d6334fdea6383db"
+      }
+    }
+  ],
+  "version" : 2
+}
